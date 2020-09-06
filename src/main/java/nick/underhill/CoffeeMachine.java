@@ -25,7 +25,7 @@ public class CoffeeMachine {
     }
 
     void startCoffeeMachine() {
-        System.out.println("Write action (1- buy, 2 - fill, 3 - take, 4 - remaining, 5 - exit): ");
+        System.out.println("Write action (1- buy, 2 - fill, 3 - take, 4 - status, 5 - exit): ");
         switch (sc.nextInt()) {
             case 1:
                 System.out.println("What do you want to buy? 1 - espresso, 2 - latte, " +
@@ -42,11 +42,11 @@ public class CoffeeMachine {
                 startCoffeeMachine();
                 break;
             case 4:
-                System.exit(0);
-                break;
-            case 5:
                 printStatus();
                 startCoffeeMachine();
+                break;
+            case 5:
+                System.exit(0);
                 break;
             default:
                 System.out.println("Unknown command");
@@ -61,8 +61,8 @@ public class CoffeeMachine {
                 "%s of coffee beans\n" +
                 "%s of disposable cups\n" +
                 "$%s of money";
-        System.out.println(String.format(message,
-                waterAvailable, milkAvailable, coffeeAvailable, cupsAvailable, cashBox));
+        System.out.printf(message,
+                waterAvailable, milkAvailable, coffeeAvailable, cupsAvailable, cashBox);
     }
 
     void refillCoffeeMachine() {
