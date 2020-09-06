@@ -4,39 +4,47 @@ import java.util.Scanner;
 
 public class CoffeeMachine {
 
-    static Scanner sc = new Scanner(System.in);
-    static int waterAvailable = 400;
-    static int milkAvailable = 540;
-    static int coffeeAvailable = 120;
-    static int cupsAvailable = 9;
-    static int cashBox = 550;
+    private final Scanner sc = new Scanner(System.in);
+    private int waterAvailable;
+    private int milkAvailable;
+    private int coffeeAvailable;
+    private int cupsAvailable;
+    private int cashBox;
 
+    public CoffeeMachine(int waterAvailable, int milkAvailable, int coffeeAvailable, int cupsAvailable, int cashBox) {
+        this.waterAvailable = waterAvailable;
+        this.milkAvailable = milkAvailable;
+        this.coffeeAvailable = coffeeAvailable;
+        this.cupsAvailable = cupsAvailable;
+        this.cashBox = cashBox;
+    }
 
-    private static void takeMoney() {
+    void takeMoney() {
         System.out.println("I gave you $" + cashBox);
         cashBox = 0;
     }
 
-    public static void startCoffeeMachine() {
-        System.out.println("Write action (buy, fill, take, remaining, exit): ");
-        switch (sc.next()) {
-            case "buy":
+    void startCoffeeMachine() {
+        System.out.println("Write action (1- buy, 2 - fill, 3 - take, 4 - remaining, 5 - exit): ");
+        switch (sc.nextInt()) {
+            case 1:
                 System.out.println("What do you want to buy? 1 - espresso, 2 - latte, " +
                         "3 - cappuccino, back - to main menu:");
                 sellCoffee(sc.next());
                 startCoffeeMachine();
                 break;
-            case "fill":
+            case 2:
                 refillCoffeeMachine();
                 startCoffeeMachine();
                 break;
-            case "take":
+            case 3:
                 takeMoney();
                 startCoffeeMachine();
                 break;
-            case "exit":
+            case 4:
                 System.exit(0);
-            case "remaining":
+                break;
+            case 5:
                 printStatus();
                 startCoffeeMachine();
                 break;
@@ -46,7 +54,7 @@ public class CoffeeMachine {
         }
     }
 
-    private static void printStatus() {
+    void printStatus() {
         String message = "The coffee machine has:\n" +
                 "%s of water\n" +
                 "%s of milk\n" +
@@ -57,7 +65,7 @@ public class CoffeeMachine {
                 waterAvailable, milkAvailable, coffeeAvailable, cupsAvailable, cashBox));
     }
 
-    private static void refillCoffeeMachine() {
+    void refillCoffeeMachine() {
         System.out.println("Write how many ml of water do you want to add:");
         waterAvailable += sc.nextInt();
         System.out.println("Write how many ml of milk do you want to add:");
@@ -68,7 +76,7 @@ public class CoffeeMachine {
         cupsAvailable += sc.nextInt();
     }
 
-    public static boolean makeCoffee(int water, int coffeeBeans, int price) {
+    boolean makeCoffee(int water, int coffeeBeans, int price) {
         if (waterAvailable - water < 0) {
             System.out.println("Sorry, not enough water!");
             return false;
@@ -87,7 +95,7 @@ public class CoffeeMachine {
         return true;
     }
 
-    public static boolean makeCoffee(int water, int coffeeBeans, int price, int milk) {
+    boolean makeCoffee(int water, int coffeeBeans, int price, int milk) {
         if(makeCoffee(water,coffeeBeans,price)) {
             if (milkAvailable - milk < 0) {
                 System.out.println("Sorry, not enough milk!");
@@ -99,7 +107,7 @@ public class CoffeeMachine {
         return false;
     }
 
-    private static void sellCoffee(String drinkId) {
+    void sellCoffee(String drinkId) {
         switch (drinkId) {
             case "1":
                 makeCoffee(250, 16, 4);
